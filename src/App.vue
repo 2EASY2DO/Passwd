@@ -1,6 +1,7 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
+    <h1>Build topbar here</h1>
+    <router-link to="/">Home</router-link>
     <router-link to="/about">About</router-link>
   </div>
   <router-view/>

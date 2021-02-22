@@ -5,6 +5,11 @@
 npm install
 ```
 
+### Compiles and opens in Electron with hot-reload active
+```
+yarn electro:serve
+```
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve
