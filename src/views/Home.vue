@@ -3,7 +3,7 @@
     <h1 class="text-red-400">Put Left Side</h1>
     <div>
       <div> 
-        <input class="form-checkbox h-5 w-5 bg-orange-600" type="checkbox" id="caps" name="caps" value="caps">
+        <input type="checkbox" id="caps" name="caps" value="caps">
         <label for="caps"> Use Caps</label>
       </div>
       <div>
@@ -16,10 +16,10 @@
       </div>
     </div> 
     <h1>choose to ahve a text box for user to inoput length instead of the slider</h1>
-    <input type="text" id="length" name="length"> 
+    <input v-model="length" type="text" id="length" name="length"> 
     <h1 class="text-red-400">Put Right Side</h1>
-    <h1>password generated goes here</h1>
-    <button class="bg-red-400 rounded-md w-16 h-10 hover:bg-green-400 focus:bg-green-400 focus:ring-2 focus:outline-none focus:ring-red-400">Copy</button> 
+    <h1>{{password}}</h1>
+    <button v-on:click="createpasswd" class="bg-red-400 rounded-md w-16 h-10 hover:bg-green-400 focus:bg-green-400 focus:ring-2 focus:outline-none focus:ring-red-400">Copy</button> 
     <h1>button to save password to file in pc, it will also copy the password to clipboard</h1>
   </div>
 </template>
@@ -31,6 +31,25 @@ export default {
   name: 'Home',
   components: {
     
+  },
+  data() {
+    return {
+      password: "Click the button to make a new password",
+      length: 8
+    }
+  },
+  methods: {
+  createpasswd() {
+    this.password = "";
+    let letters = "abcdefghijklmnopqrstuvwxyz";
+
+    for(let i = 1; i <=this.length; i++){
+      let char = Math.round(Math.random()
+                            * letters.length + 1);
+      this.password += letters.charAt(char);
+    } 
+    }
   }
 }
+
 </script>
