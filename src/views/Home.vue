@@ -3,15 +3,15 @@
     <h1 class="text-red-400">Put Left Side</h1>
     <div>
       <div> 
-        <input type="checkbox" id="caps" name="caps" value="caps">
+        <input v-model="caps" type="checkbox" id="caps" name="caps" value="caps">
         <label for="caps"> Use Caps</label>
       </div>
       <div>
-        <input type="checkbox" id="numbers" name="numbers" value="numbers">
+        <input v-model="nums" type="checkbox" id="numbers" name="numbers" value="numbers">
         <label for="numbers"> Use Number</label>
       </div>
       <div>
-        <input type="checkbox" id="symbols" name="symbols" value="symbols">
+        <input v-model="sym" type="checkbox" id="symbols" name="symbols" value="symbols">
         <label for="symbols"> Use Symbols</label> 
       </div>
     </div> 
@@ -35,7 +35,10 @@ export default {
   data() {
     return {
       password: "Click the button to make a new password",
-      length: 8
+      length: 8,
+      caps: false,
+      nums: false,
+      sym: false
     }
   },
   methods: {
@@ -43,10 +46,22 @@ export default {
     this.password = "";
     let letters = "abcdefghijklmnopqrstuvwxyz";
 
+    if (this.caps == true){letters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ"}
+    if (this.nums == true){letters += "123456789"}
+    if (this.sym == true){letters += "!@#$%&_+"}
+
     for(let i = 1; i <=this.length; i++){
       let char = Math.round(Math.random()
                             * letters.length + 1);
-      this.password += letters.charAt(char);
+     // Testing a new way of working with teh checkboxes
+     //if (this.caps == true){
+      //  if (Math.round(Math.random()) > 0){ 
+      //   this.password += letters.charAt(char).toUpperCase();
+      //  } else {
+      //    this.password += letters.charAt(char);
+      //  }
+      //}
+      this.password += letters.charAt(char)
     } 
     }
   }
