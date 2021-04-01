@@ -1,6 +1,5 @@
 <template>
   <div class="home"> 
-    <h1 class="text-red-400">Put Left Side</h1>
     <div>
       <h1 class="text-blue-500 font-black">Options</h1>
       <div> 
@@ -16,34 +15,45 @@
         <label for="symbols" class="text-white"> Use Symbols</label> 
       </div>
     <input v-model="length" type="text" id="length" name="length">  
-    </div>  
-    <h1 class="text-red-400">Put Right Side</h1>
+    </div>
+    <div v-for="password in passwords" :key="password.id">
+      <span class="password">{{password}}</span>
+    </div>
     <div>
       <h1 class="text-blue-500 font-black">Result</h1>
       <h1 class="text-green-400">{{password}}</h1>
       <div class="flex space-x-4 items-centerv justify-center">
         <button v-on:click="createpasswd" class="text-black bg-red-400 rounded-md w-20 h-12 hover:bg-green-400 hover:text-white focus:bg-green-400 focus:ring-2 focus:outline-none focus:ring-red-400">Create Password</button> 
-        <button v-on:click="copy" class="text-black bg-red-400 rounded-md w-12 h-10 hover:bg-green-400 hover:text-white focus:bg-green-400 focus:ring-2 focus:outline-none focus:ring-red-400">Copy</button>  
+        <button v-on:click="copy" class="text-black bg-red-400 rounded-md w-12 h-10 hover:bg-green-400 hover:text-white focus:bg-green-400 focus:ring-2 focus:outline-none focus:ring-red-400">Copy</button>
+	<button v-on:click="persist">Create File</button>
       </div>
     </div>
   </div>
 </template>
-
 <script>
-// @ is an alias to /src
-
 export default {
   name: 'Home',
   components: {
     
   },
   data() {
-    return {
-      password: "Click the button to make a new password",
-      length: 12,
-      caps: false,
-      nums: false,
-      sym: false
+      return {
+	password: "Click the button to make a new password",
+	length: 12,
+	caps: false,
+	nums: false,
+	sym: false,
+	passwords: []
+    }
+  },
+  mounted() {
+    if (localStorage.passwords){
+	this.passwords = JSON.parse(localStorage.passwords);
+    }
+  },
+  watch: {
+    passwords(newPasswords){
+	localStorage.passwords = JSON.stringify(newPasswords);
     }
   },
   methods: {
@@ -63,7 +73,11 @@ export default {
     },
   copy() {
     navigator.clipboard.writeText(this.password)  
-  }
+  },
+    persist() {
+      localStorage.passwords = this.password;
+      console.log('added to localStorage');
+     }
   }
 }
 
